@@ -3,13 +3,15 @@ var canvas;
 
 var position;
 
-var mappa = new Mappa("Leaflet");
+var mappa = new Mappa('MapboxGL',
+'pk.eyJ1Ijoia2FuZWRhbW4iLCJhIjoiY2sydDVmZm5jMTRrZzNkcWJkeGIzczdkeSJ9.sR1OjqoQxXbnNOQYdKa8rQ');
 
 var options = {
   lat: 0,
   lng: 0,
-  zoom: 6,
-  style: "http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+  zoom: 5,
+  studio: true,
+  style: "mapbox://styles/kanedamn/ck2upik4000s21cmb9j7tyu3f"
 }
 
 var coordinates;
@@ -18,19 +20,15 @@ var fantasma1;
 var fantasma2;
 var fantasma3;
 
-var imgPac;
-var img1;
-var img2;
-var img3;
+var imgKir;
+var imgStar;
 
 function preload() {
   position = getCurrentPosition();
   console.log(position);
 
-  imgPac = loadImage("./assets/paclady.png");
-  img1 = loadImage("./assets/fant1.png");
-  img2 = loadImage("./assets/fant2.png");
-  img3 = loadImage("./assets/fant3.png");
+  imgKir = loadImage("./assets/kirby.png");
+  imgStar = loadImage("./assets/star.png");
 
 }
 
@@ -42,16 +40,16 @@ function setup() {
   myMap = mappa.tileMap(options);
   myMap.overlay(canvas);
 
-  fantasma1 = new Fantasma(48.8587741, 2.2069771, img1);
-  fantasma2 = new Fantasma(41.9097289, 12.2551203, img2);
-  fantasma3 = new Fantasma(40.853522, 14.1025778, img3);
+  fantasma1 = new Fantasma(48.8587741, 2.2069771, imgStar);
+  fantasma2 = new Fantasma(41.9097289, 12.2551203, imgStar);
+  fantasma3 = new Fantasma(40.853522, 14.1025778, imgStar);
 
 }
 
 function draw() {
   clear();
   coordinates = myMap.latLngToPixel(position.latitude, position.longitude);
-  image(imgPac, coordinates.x, coordinates.y);
+  image(imgKir, coordinates.x, coordinates.y);
 
   fantasma1.display();
   fantasma2.display();
@@ -78,9 +76,9 @@ function draw() {
   textAlign(LEFT);
   textSize(20);
   fill(20);
-  text("French Ghost is "+dist1+" baguettes away from you", rectX - 260, rectY - 40);
-  text("Roman Ghost is "+dist2+" AOs away from you", rectX - 260, rectY);
-  text("Neapolitan Ghost is "+dist3+" merendini's away from you", rectX - 260, rectY + 40);
+  text("French Star is "+dist1+" baguettes away from you", rectX - 260, rectY - 40);
+  text("Roman Star is "+dist2+" AOs away from you", rectX - 260, rectY);
+  text("Neapolitan Star is "+dist3+" merendini's away from you", rectX - 260, rectY + 40);
 }
 
 function appearText(){
